@@ -1,0 +1,30 @@
+.node {
+    fill: #69b3a2;
+    stroke: #555;
+    stroke-width: 1.5px;
+    cursor: pointer;
+}
+
+.link {
+    fill: none;
+    stroke: #999;
+    stroke-opacity: 0.6;
+    stroke-width: 1.5px;
+}
+
+.selected {
+    fill: orange;
+}
+
+.mindmap-container {
+    width: 80%;
+    margin: 20px auto;
+    text-align: center;
+    overflow: auto;
+}
+
+svg {
+    border: 1px solid #ccc;
+    margin: 0 auto;
+    width: 100%;
+}

@@ -1,0 +1,78 @@
+body {
+    background-color: #000;
+    font-family: Arial, sans-serif;
+    color: #fff;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.timer {
+    text-align: center;
+    color: #00e5ff;
+    width: 80%;
+    margin: 30px auto;
+}
+
+.time-circle {
+    /* display: inline-block; */
+    margin: 0 15px;
+    text-align: center;
+    position: relative;
+}
+
+.time-circle .value {
+    font-size: 8rem;
+    font-weight: bold;
+    z-index: 2;
+    position: relative;
+}
+
+.time-circle .label {
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    z-index: 2;
+    position: relative;
+}
+
+.time-circle .circle {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 5px solid rgba(0, 229, 255, 0.2);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: spin 60s linear infinite;
+    z-index: 1;
+}
+
+.circle.minutes {
+    animation-duration: 3600s;
+}
+
+.circle.hours {
+    animation-duration: 43200s;
+}
+
+@keyframes spin {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.task-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.btn-area{
+    margin-top: 5%;
+}
