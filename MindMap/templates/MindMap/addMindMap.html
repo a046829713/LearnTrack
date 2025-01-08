@@ -18,10 +18,11 @@
 
 <body>
     <div class="mindmap-container">
-        <h1>Add / Modify MindMap</h1>
+        <h1 onclick="changeName()" id="mainMapTitle">Defult MindMap</h1>
         <div id="mindmap"></div>
         <button id="addNode" class="btn btn-success mt-3">Add Node</button>
         <button id="deleteNode" class="btn btn-danger mt-3">Delete Node</button>
+        <button id="saveMindMap" class="btn btn-primary mt-3">Save MindMap</button>        
     </div>
 
     <script>
@@ -58,7 +59,7 @@
             //  updateGraph
             // ----------------------
             const updateGraph = () => {
-                // (1) update links
+                // (1) update links                
                 const link = mainGroup.selectAll(".link").data(links, d => d.source.id + "_" + d.target.id);
                 link.exit().remove();
                 link.enter()
@@ -78,8 +79,8 @@
                         .on("start", dragstarted)
                         .on("drag", dragged)
                         .on("end", dragended));
-                
-                
+
+
 
                 // 只對新節點 append circle
                 newNode.append("circle")
@@ -117,7 +118,7 @@
                     });
 
 
-                    
+
                 // 只對新節點 append text (content-text)
                 newNode.append("text")
                     .attr("class", "content-text")
@@ -225,12 +226,56 @@
                 d.fy = null;
             };
 
+
+
+
+            // ----------------------
+            //  儲存按鈕事件 (AJAX)
+            // ----------------------
+            $("#saveMindMap").on("click", function () {
+                // 將 nodes、links 資料包成 JSON字串
+                const mindmapData = {
+                    nodes: nodes,
+                    links: links,
+                    mindMapTiltle:$("#mainMapTitle").text()
+                };
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'save_mindmap' %}",  // 需對應後端的 URL
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    data: JSON.stringify(mindmapData),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        alert("MindMap 已成功保存！");
+                        console.log(response);
+                    },
+                    error: function (xhr, status, error) {
+                        alert("MindMap 保存失敗。");
+                        console.error(error);
+                    }
+                });
+            });
             // ----------------------
             //  first run
             // ----------------------
             updateGraph();
+
+
+
+
         });
 
+
+
+
+        function changeName(){
+            const newMainMapTitle = prompt("請輸入新的內容：");            
+            $("#mainMapTitle").text(`${newMainMapTitle}`);
+        }
     </script>
 
 </body>

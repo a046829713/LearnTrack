@@ -6,4 +6,5 @@ urlpatterns = [
     # path('TaskAdd/', views),
     path('index/', views.Index.as_view(),name='index'),
     path('addMindMap/', views.AddMindMap.as_view(),name='addMindMap'),
+    path('save_mindmap/', views.save_mindmap, name='save_mindmap'),
 ]
